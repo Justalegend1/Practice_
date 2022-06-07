@@ -1,0 +1,77 @@
+﻿@using Practice_1.DAL
+@model IEnumerable<Practice_1.Domain.Entity.Certificate>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Код студента
+            </th>
+            <th>
+                Фамилия врача
+            </th>
+            <th>
+                Имя врача
+            </th>
+            <th>
+                Отчество врача
+            </th>
+            <th>
+                Начало действия справки
+            </th>
+            <th>
+                Конец действия справки
+            </th>
+            <th>
+                Тип взаимодействия
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@using (ApplicationContext db = new ApplicationContext("DefaultConnection"))
+   {
+            var _result = from certificate in db.Certificate
+                          join doctor in db.Doctor on certificate.Doctor_ID equals doctor.Doctor_ID
+                          select new
+                          {
+                              number = certificate.Certificate_number,
+                              surname = doctor.Surname,
+                              name = doctor.Name,
+                              middle_name = doctor.Middle_name,
+                              start = certificate.The_beginning_of_the_action,
+                              end = certificate.End_of_action,
+                              type = certificate.Type,
+                              student = certificate.Student_ID
+                          };
+            @foreach (var certificate in _result)
+            {
+                <tr>
+                    <td>@certificate.student</td>
+                    <td>@certificate.surname</td><td>@certificate.name</td>
+                    <td>@certificate.middle_name</td><td>@certificate.start</td>
+                    <td>@certificate.end</td><td>@certificate.type</td><td>
+                <a asp-action="Edit" asp-route-id="@certificate.number">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@certificate.number">Delete</a>
+            </td>
+                </tr>
+            }
+   } 
+   <form style="display: inline-block;" asp-controller="Certificates" asp-action="Index" method="Index">
+           <input type="submit" value="Update">
+           </form>
+    </tbody>
+     <a asp-controller="Doctors" asp-action="Index" method="index">Список врачей</a>
+</table>
+<form style="display: inline-block;" asp-controller="Students" asp-action="Index" method="Index">
+           <input type="submit" value="Back">
+           </form>

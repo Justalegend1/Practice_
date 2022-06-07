@@ -1,0 +1,64 @@
+﻿@using Practice_1.DAL
+@model IEnumerable<Practice_1.Domain.Entity.Doctor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Фамилия
+            </th>
+            <th>
+                Имя
+            </th>
+            <th>
+                Отчество
+            </th>
+            <th>
+               Название больницы
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@using (ApplicationContext db = new ApplicationContext("DefaultConnection"))
+   {
+            var _result = from doctor in db.Doctor
+                          join hospital in db.Hospital on doctor.Hospital_ID equals hospital.Hospital_ID
+                          select new
+                          {
+                             number = doctor.Doctor_ID,
+                             name = doctor.Name,
+                             surname = doctor.Surname,
+                             middle_name = doctor.Middle_name,
+                             hospital = hospital.Hospital_Name
+                          };
+            @foreach (var doctor in _result)
+            {
+                <tr>
+                    <td>@doctor.surname</td>
+                    <td>@doctor.name</td><td>@doctor.middle_name</td>
+                    <td>@doctor.hospital</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@doctor.number">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@doctor.number">Delete</a>
+            </td>
+                </tr>
+            }
+   } 
+   <form style="display: inline-block;" asp-controller="Doctors" asp-action="Index" method="Index">
+           <input type="submit" value="Update">
+           </form>
+    </tbody>
+</table>
+<form style="display: inline-block;" asp-controller="Certificates" asp-action="Index" method="Index">
+           <input type="submit" value="Back">
+           </form>

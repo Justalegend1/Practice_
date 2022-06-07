@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Кнопка</title>
+ </head>
+ <body>
+     <p><font color="red">Такой пользователь уже существует</font>/p>
+      <p><input type="text" id="password" placeholder="Type login" name="login"></p>
+      <p><input type="password" id="password" placeholder="Type password" name="password"></p>
+  <form style="display: inline-block;" asp-controller="Identification" asp-action="Identification" method="Identification">
+       <input type="submit" value="Already have an account"> 
+   </form>
+   <form style="display: inline-block;" asp-controller="MainPage" asp-action="MainPage" method="MainPage">
+           <input type="submit" value="Registrate">
+   </form>
+ </body>
+</html>

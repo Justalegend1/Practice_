@@ -1,0 +1,85 @@
+﻿@using Practice_1.DAL
+@using Practice_1.Domain.Entity
+@using System.Linq;
+@model List<Student>
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Кнопка</title>
+ </head>
+ <body> 
+     <style type="text/css">
+     TABLE {
+     width: 300px; /* Ширина таблицы */
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+   }
+   TD, TH {
+    padding: 3px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid black; /* Параметры рамки */
+   }
+   TH {
+    background: #b0e0e6; /* Цвет фона */
+   
+     }
+     </style>
+     <table>
+   <tr>
+    <th>Фамилия</th><th>Имя</th>
+    <th>Отчество</th><th>Дата рождения</th><th>Пол</th><th>Город</th><th>Направление</th>
+    <th>Групппы</th><th>Основание обучения</th><th>Форма обучения</th>
+    <th>Паспортные данные</th><th>Номер договора</th><th>Номер справки</th><th>Почта</th>
+    <th>Номер телефона</th><th>Курс</th>
+   </tr>
+   @using (ApplicationContext db = new ApplicationContext("DefaultConnection"))
+        {
+            var _result = from student in db.Student
+                       join sex in db.Sex on student.Sex_ID equals sex.ID_sex
+                       join city in db.City on student.City_ID equals city.City_ID
+                       join direction in db.Direction on student.Direction_ID equals direction.ID_Direction
+                       join Group in db.Group on student.Group_ID equals Group.ID_Group
+                       join Basis in db.Basis_of_study on student.ID_basis_study equals Basis.ID_basis_study
+                       join Form in db.Form_of_study on student.ID_form_study equals Form.ID_form_study
+                       select new
+                       {
+                           Id = student.Student_ID,
+                           Name = student.Name,
+                           Surname = student.Surname,
+                           Middle_name = student.Middle_name,
+                           Birth_date = student.Birth_date,
+                           Sex = sex.sex,
+                           City = city.City_Name,
+                           Direction = direction.Name_Direction,
+                           Group = Group.@group,
+                           Basis_study = Basis.Basis_study,
+                           Form_study = Form.Study_form,
+                           Passport_data = student.Passport_data,
+                           Contract = student.Contract_number,
+                           Certificate = student.Certificate_number,
+                           E_mail = student.E_mail,
+                           Phone = student.Phone_number,
+                           Course = student.Course
+                       };
+            
+                       @foreach (var Student in _result)
+                   {
+                   <tr>
+                    <td>@Student.Surname</td><td>@Student.Name</td><td>@Student.Middle_name</td><td class="Birth_date" width = 100>@Student.Birth_date</td><td>@Student.Sex</td><td>@Student.City</td>
+                    <td>@Student.Direction</td><td>@Student.Group</td><td>@Student.Basis_study</td>
+                    <td>@Student.Form_study</td><td>@Student.Passport_data</td><td>@Student.Contract</td>
+                    <td>@Html.ActionLink($"{@Student.Certificate}","Certificate","Certificate")</td><td>@Student.E_mail</td><td>@Student.Phone</td>
+                    <td>@Student.Course</td><td><button type="submit" asp-page-handler="delete" asp-route-id="@Student.Id">
+                        Delete
+                    </button><td><button type="submit" asp-page-handler="delete" asp-route-id="@Student.Id">
+                        Edit
+                    </button>
+                   </tr>
+                   }
+        }
+        <form style="display: inline-block;" asp-controller="MainPage" asp-action="MainPage" method="MainPage">
+           <input type="submit" value="Update">
+           </form>
+    </table>
+  </body>
+  </html>
+  

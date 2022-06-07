@@ -1,0 +1,64 @@
+﻿@using Practice_1.DAL
+@using Practice_1.Domain.Entity
+@model List<Certificate>
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Кнопка</title>
+ </head>
+ <body> 
+     <style type="text/css">
+     TABLE {
+     width: 320px; /* Ширина таблицы */
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+   }
+   TD, TH {
+    padding: 3px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid black; /* Параметры рамки */
+   }
+   TH {
+    background: #b0e0e6; /* Цвет фона */
+   
+     }
+     </style>
+     <table width="100%">
+   <tr>
+    <th>Номер сертификата</th><th>Код студента</th>
+    <th>Фамилия врача</th><th>Имя врача</th><th>Отчество врача</th><th>Начало действия</th><th>Конец действия</th><th>Тип</th>
+   </tr>
+   @using (ApplicationContext db = new ApplicationContext("DefaultConnection"))
+   {
+            var _result = from certificate in db.Certificate
+                          join doctor in db.Doctor on certificate.Doctor_ID equals doctor.Doctor_ID
+                          select new
+                          {
+                              number = certificate.Certificate_number,
+                              surname = doctor.Surname,
+                              name = doctor.Name,
+                              middle_name = doctor.Middle_name,
+                              start = certificate.The_beginning_of_the_action,
+                              end = certificate.End_of_action,
+                              type = certificate.Type,
+                              student = certificate.Student_ID
+                          };
+            @foreach (var certificate in _result)
+            {
+                <tr>
+                    <td>@certificate.number</td><td>@certificate.student</td>
+                    <td>@certificate.surname</td><td>@certificate.name</td>
+                    <td>@certificate.middle_name</td><td>@certificate.start</td>
+                    <td>@certificate.end</td><td>@certificate.type</td><td><button type="submit" asp-page-handler="delete" asp-route-id="@certificate.number">
+                        Delete
+                    </button><td><button type="submit" asp-page-handler="delete" asp-route-id="@certificate.number">
+                        Edit
+                    </button>
+                </tr>
+            }
+   }   
+   </table>
+    <form style="display: inline-block;" asp-controller="Students" asp-action="Index">
+       <input type="submit" value="Back">
+   </form>
+   </body>
+   </html>

@@ -1,0 +1,8 @@
+﻿@using Practice_1.Domain.Entity
+@model List<Student>
+@foreach (var Student in Model)
+{
+    <p>@Student.Name</p>
+    <p>@Student.Middle_name</p>
+    <p>@Student.Birth_date</p> 
+}
