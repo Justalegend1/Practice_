@@ -20,10 +20,13 @@ namespace Practice_1.Controllers
         
         public IActionResult Identification(string login, string password)
         {
-            var user = _db.Register.Select(x => x.login_user);
-            if (login != null && user.Contains(login))
+            var logins = _db.Register.Select(x => x.login_user);
+            var passwords = _db.Register.Select(x => x.password_user);
+            if (login != null && logins.Contains(login))
             {
+                if (passwords.Contains(password))
                 return Redirect("/Students/Index");
+                else return View();
             }
             else
             {

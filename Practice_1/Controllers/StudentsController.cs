@@ -92,7 +92,7 @@ namespace Practice_1.Controllers
             ViewBag.Group_ID = new SelectList(_context.Group, "ID_Group", "group");
             ViewBag.ID_basis_study = new SelectList(_context.Basis_of_study, "ID_basis_study", "Basis_study");
             ViewBag.ID_form_study = new SelectList(_context.Form_of_study, "ID_form_study", "Study_form");
-            ViewBag.Certificate_number = new SelectList(_context.Certificate, "Certificate_number");
+            ViewBag.Certificate_number = new SelectList(_context.Certificate, "Certificate_number", "Certificate_number");
             return View(student);
         }
 

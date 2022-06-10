@@ -46,7 +46,7 @@ namespace Practice_1.Controllers
         // GET: Certificates/Create
         public IActionResult Create()
         {
-            ViewBag.Student_ID = new SelectList(_context.Student, "Student_ID", "E_mail");
+            ViewBag.Student_ID = new SelectList(_context.Student, "Student_ID", "Student_ID");
             ViewBag.Doctor_ID = new SelectList(_context.Doctor, "Doctor_ID", "Doctor_ID");
             return View();
         }
@@ -64,6 +64,8 @@ namespace Practice_1.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Student_ID = new SelectList(_context.Student, "Student_ID", "E_mail");
+            ViewBag.Doctor_ID = new SelectList(_context.Doctor, "Doctor_ID", "Doctor_ID");
             return View(certificate);
         }
 
