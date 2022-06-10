@@ -46,6 +46,7 @@ namespace Practice_1.Controllers
         // GET: Hospitals/Create
         public IActionResult Create()
         {
+            ViewBag.City_ID = new SelectList(_context.City, "City_ID", "City_Name");
             return View();
         }
 
@@ -62,6 +63,7 @@ namespace Practice_1.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.City_ID = new SelectList(_context.City, "City_ID", "City_Name");
             return View(hospital);
         }
 
@@ -78,6 +80,7 @@ namespace Practice_1.Controllers
             {
                 return NotFound();
             }
+            ViewBag.City_ID = new SelectList(_context.City, "City_ID", "City_Name");
             return View(hospital);
         }
 

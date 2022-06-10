@@ -46,7 +46,7 @@ namespace Practice_1.Controllers
         // GET: Doctors/Create
         public IActionResult Create()
         {
-            ViewBag.Hospital_ID = new SelectList(_context.Doctor, "Hospital_ID", "Hospital_ID");
+            ViewBag.Hospital_ID = new SelectList(_context.Hospital, "Hospital_ID", "Hospital_Name");
             return View();
         }
 
@@ -79,6 +79,7 @@ namespace Practice_1.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Hospital_ID = new SelectList(_context.Hospital, "Hospital_ID", "Hospital_Name");
             return View(doctor);
         }
 

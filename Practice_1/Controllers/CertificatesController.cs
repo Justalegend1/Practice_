@@ -82,6 +82,8 @@ namespace Practice_1.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Student_ID = new SelectList(_context.Student, "Student_ID", "Student_ID");
+            ViewBag.Doctor_ID = new SelectList(_context.Doctor, "Doctor_ID", "Doctor_ID");
             return View(certificate);
         }
 

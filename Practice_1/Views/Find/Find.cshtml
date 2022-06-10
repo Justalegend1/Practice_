@@ -6,10 +6,6 @@
 }
 
 <h1>Certificates</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <body>
     <style type="text/css">
      TABLE {
@@ -56,7 +52,7 @@
     <tbody>
 @using (ApplicationContext db = new ApplicationContext("DefaultConnection"))
    {
-            var _result = from certificate in db.Certificate
+            var _result = from certificate in Model
                           join doctor in db.Doctor on certificate.Doctor_ID equals doctor.Doctor_ID
                           select new
                           {
@@ -81,17 +77,12 @@
             </td>
                 </tr>
             }
-   } 
-   <form style="display: inline-block;" asp-controller="Certificates" asp-action="Index" method="Index">
-           <input type="submit" value="Update">
-           </form>
+   }
            <form style="display: inline-block;" asp-controller="Find" asp-action="Find" method="post">
                <input type="datetime-local" placeholder = "Введите дату отсчета" name="datetime"/>
            <input type="submit" value="Get by date!">
            </form>
     </tbody>
-     <a asp-controller="Doctors" asp-action="Index" method="index">Список врачей</a>
-</table>
-<form style="display: inline-block;" asp-controller="Students" asp-action="Index" method="Index">
+    <form style="display: inline-block;" asp-controller="Certificates" asp-action="Index" method="Index">
            <input type="submit" value="Back">
            </form>
