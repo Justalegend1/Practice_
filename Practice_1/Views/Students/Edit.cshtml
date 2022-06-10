@@ -38,32 +38,32 @@
             </div>
             <div class="form-group">
                 <label asp-for="Sex_ID" class="control-label">Пол</label>
-                <input asp-for="Sex_ID" class="form-control" />
+                <select asp-for="Sex_ID" class ="form-control" asp-items="ViewBag.SexId"></select>
                 <span asp-validation-for="Sex_ID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="City_ID" class="control-label">Город</label>
-                <input asp-for="City_ID" class="form-control" />
+                <select asp-for="City_ID" class ="form-control" asp-items="ViewBag.City_ID"></select>
                 <span asp-validation-for="City_ID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Direction_ID" class="control-label">Направление</label>
-                <input asp-for="Direction_ID" class="form-control" />
+                <select asp-for="Direction_ID" class="control-label" asp-items="ViewBag.Direction_ID"></select>
                 <span asp-validation-for="Direction_ID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Group_ID" class="control-label">Группа</label>
-                <input asp-for="Group_ID" class="form-control" />
+                <select asp-for="Group_ID" class ="form-control" asp-items="ViewBag.Group_ID"></select>
                 <span asp-validation-for="Group_ID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ID_basis_study" class="control-label">Основа обучения</label>
-                <input asp-for="ID_basis_study" class="form-control" />
+                <select asp-for="ID_basis_study" class ="form-control" asp-items="ViewBag.ID_basis_study"></select>
                 <span asp-validation-for="ID_basis_study" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ID_form_study" class="control-label">Форма обучения</label>
-                <input asp-for="ID_form_study" class="form-control" />
+                 <select asp-for="ID_form_study" class ="form-control" asp-items="ViewBag.ID_form_study"></select>
                 <span asp-validation-for="ID_form_study" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -78,7 +78,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Certificate_number" class="control-label">Код справки</label>
-                <input asp-for="Certificate_number" class="form-control" />
+                <select asp-for="Certificate_number" class ="form-control" asp-items="ViewBag.Certificate_number"></select>
                 <span asp-validation-for="Certificate_number" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -5,11 +5,27 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Doctors</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<body>
+    <style type="text/css">
+     TABLE {
+     width: 300px; /* Ширина таблицы */
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+   }
+   TD, TH {
+    padding: 3px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid black; /* Параметры рамки */
+   }
+   TH {
+    background: #b0e0e6; /* Цвет фона */
+   
+     }
+     </style>
+</body>
 <table class="table">
     <thead>
         <tr>
@@ -58,6 +74,7 @@
            <input type="submit" value="Update">
            </form>
     </tbody>
+    <a asp-controller="Hospitals" asp-action="Index" method="index">Список больниц</a>
 </table>
 <form style="display: inline-block;" asp-controller="Certificates" asp-action="Index" method="Index">
            <input type="submit" value="Back">

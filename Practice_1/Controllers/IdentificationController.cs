@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Practice_1.DAL;
+using Practice_1.Domain.Entity;
+using System.Linq;
 
 namespace Practice_1.Controllers
 {
@@ -8,16 +11,24 @@ namespace Practice_1.Controllers
     {
 
         private readonly ILogger<IdentificationController> _logger;
-
+        private readonly ApplicationContext _db = new ApplicationContext("Default");
         public IdentificationController(ILogger<IdentificationController> logger)
         {
             _logger = logger;
         }
         // GET: IdentificationController
         
-        public ActionResult Identification()
+        public IActionResult Identification(string login, string password)
         {
-            return View("Identification");
+            var user = _db.Register.Select(x => x.login_user);
+            if (login != null && user.Contains(login))
+            {
+                return Redirect("/Students/Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // GET: IdentificationController/Details/5

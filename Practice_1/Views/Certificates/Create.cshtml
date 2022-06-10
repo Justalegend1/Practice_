@@ -1,5 +1,6 @@
 ﻿@model Practice_1.Domain.Entity.Certificate
-
+@using Practice_1.DAL
+@using Practice_1.Domain.Entity
 @{
     ViewData["Title"] = "Create";
 }
@@ -13,29 +14,29 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Student_ID" class="control-label"></label>
-                <input asp-for="Student_ID" class="form-control" />
+                <label asp-for="Student_ID" class="control-label">Код студента</label>
+                <select asp-for="Student_ID" class ="form-control" asp-items="ViewBag.Doctor_ID"></select>
                 <span asp-validation-for="Student_ID" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Doctor_ID" class="control-label"></label>
-                <input asp-for="Doctor_ID" class="form-control" />
+                <label asp-for="Doctor_ID" class="control-label">Табельный номер врача</label>
+                <select asp-for="Doctor_ID" class ="form-control" asp-items="ViewBag.Doctor_ID"></select>
                 <span asp-validation-for="Doctor_ID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="The_beginning_of_the_action" class="control-label"></label>
+                <label asp-for="The_beginning_of_the_action" class="control-label">Дата начала</label>
                 <input asp-for="The_beginning_of_the_action" class="form-control" />
                 <span asp-validation-for="The_beginning_of_the_action" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="End_of_action" class="control-label"></label>
+                <label asp-for="End_of_action" class="control-label">Дата окончания</label>
                 <input asp-for="End_of_action" class="form-control" />
                 <span asp-validation-for="End_of_action" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
+                <label asp-for="Type" class="control-label">Тип</label>
+                <select asp-for="Type" class="form-control"><option>Вакцинация</option><option>Болезнь</option></select>
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">

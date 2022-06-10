@@ -12,7 +12,7 @@ namespace Practice_1.Controllers
 {
     public class StudentsController : Controller
     {
-        private readonly ApplicationContext _context;
+        private readonly ApplicationContext _context = new ApplicationContext("Default");
 
         public StudentsController(ApplicationContext context)
         {
@@ -44,10 +44,16 @@ namespace Practice_1.Controllers
         }
 
         // GET: Students/Create
+        [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Category_Id = new SelectList(_context.City, "City_ID", "City_Name");
-            ViewBag.Manufacturer_country_code = new SelectList(_context.Direction, "Direction_ID", "Name_Direction");
+            ViewBag.SexId = new SelectList(_context.Sex, "ID_sex", "sex");
+            ViewBag.City_ID = new SelectList(_context.City, "City_ID", "City_Name");
+            ViewBag.Direction_ID = new SelectList(_context.Direction, "ID_Direction", "Name_Direction");
+            ViewBag.Group_ID = new SelectList(_context.Group, "ID_Group", "group");
+            ViewBag.ID_basis_study = new SelectList(_context.Basis_of_study, "ID_basis_study", "Basis_study");
+            ViewBag.ID_form_study = new SelectList(_context.Form_of_study, "ID_form_study", "Study_form");
+            ViewBag.Certificate_number = new SelectList(_context.Certificate, "Certificate_number");
             return View();
         }
 
@@ -80,6 +86,13 @@ namespace Practice_1.Controllers
             {
                 return NotFound();
             }
+            ViewBag.SexId = new SelectList(_context.Sex, "ID_sex", "sex");
+            ViewBag.City_ID = new SelectList(_context.City, "City_ID", "City_Name");
+            ViewBag.Direction_ID = new SelectList(_context.Direction, "ID_Direction", "Name_Direction");
+            ViewBag.Group_ID = new SelectList(_context.Group, "ID_Group", "group");
+            ViewBag.ID_basis_study = new SelectList(_context.Basis_of_study, "ID_basis_study", "Basis_study");
+            ViewBag.ID_form_study = new SelectList(_context.Form_of_study, "ID_form_study", "Study_form");
+            ViewBag.Certificate_number = new SelectList(_context.Certificate, "Certificate_number");
             return View(student);
         }
 

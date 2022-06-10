@@ -5,13 +5,13 @@
   <title>Кнопка</title>
  </head>
  <body>
-      <p><input type="text" id="password" placeholder="Type login" name="login"></p>
-      <p><input type="password" id="password" placeholder="Type password" name="password"></p>
-  <form style="display: inline-block;" asp-controller="Identification" asp-action="Identification" method="Identification">
-       <input type="submit" value="Already have an account"> 
+   <form style="" asp-controller="Registrate" asp-action="Registrate" method="post">
+   <p><input type="text" id="password" placeholder="Type login" name="login"></p>
+   <p><input type="password" id="password" placeholder="Type password" name="password"></p>
+   <input type="submit" value="Registrate">
    </form>
-   <form style="display: inline-block;" asp-controller="Students" asp-action="Index" method="Index">
-           <input type="submit" value="Registrate">
+   <form style="display: inline-block;" asp-controller="Identification" asp-action="Identification" method="Identification">
+       <input type="submit" value="Already have an account"> 
    </form>
  </body>
 </html>

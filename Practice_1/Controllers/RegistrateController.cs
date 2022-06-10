@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Practice_1.DAL;
 using Practice_1.DAL.Interfaces;
+using Practice_1.Domain.Entity;
 using System.Diagnostics;
 using System.Linq;
 
@@ -11,6 +12,7 @@ namespace Practice_1.Controllers
     public class RegistrateController : Controller
     {
         private readonly ILogger<RegistrateController> _logger;
+        private readonly ApplicationContext _db = new ApplicationContext("Default");
         
 
         public RegistrateController(ILogger<RegistrateController> logger)
@@ -20,11 +22,26 @@ namespace Practice_1.Controllers
         }
 
 
-        
+        [HttpPost]
         // GET: IdentificationController
-        public ActionResult Registrate(string login)
+        public IActionResult Registrate(string login, string password)
         {
-            return View("Registrate"); 
+            var user = _db.Register.Select(x=>x.login_user);
+            if (login != null && !user.Contains(login))
+            {
+                Register register = new Register { login_user = login, password_user = password, admin = false };
+                _db.Add(register);
+                _db.SaveChanges();
+                return Redirect("/Students/Index");
+            }
+            else
+            {
+                return View("Registrate");
+            }
+        }
+        public ActionResult Registrate()
+        {
+            return View();
         }
 
         // GET: IdentificationController/Details/5

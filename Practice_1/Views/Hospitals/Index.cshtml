@@ -1,0 +1,96 @@
+﻿@using Practice_1.DAL
+@model IEnumerable<Practice_1.Domain.Entity.Hospital>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Hospitals</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<body>
+    <style type="text/css">
+     TABLE {
+     width: 300px; /* Ширина таблицы */
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+   }
+   TD, TH {
+    padding: 3px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid black; /* Параметры рамки */
+   }
+   TH {
+    background: #b0e0e6; /* Цвет фона */
+   
+     }
+     </style>
+</body>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Hospital_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City_code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.House_number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Corpus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone_Fax_number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.E_Mail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Website_address)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@using (ApplicationContext db = new ApplicationContext("DefaultConnection"))
+   {
+            var _result = from hospital in db.Hospital
+                          join city in db.City on hospital.City_code equals city.City_ID
+                          select new
+                          {
+                              name = hospital.Hospital_Name,
+                              number = hospital.Hospital_ID,
+                              city = city.City_Name,
+                              street = hospital.Street,
+                              House_number = hospital.House_number,
+                              corpus = hospital.Corpus,
+                              telephone = hospital.Phone_Fax_number,
+                              E_mail = hospital.E_Mail,
+                              site = hospital.Website_address
+                          };
+            @foreach (var hospital in _result)
+            {
+                <tr>
+                    <td>@hospital.name</td>
+                    <td>@hospital.city</td><td>@hospital.street</td>
+                    <td>@hospital.House_number</td><td>@hospital.corpus</td>
+                    <td>@hospital.telephone</td><td>@hospital.E_mail</td><td>@hospital.site</td><td>
+                <a asp-action="Edit" asp-route-id="@hospital.number">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@hospital.number">Delete</a>
+            </td>
+                </tr>
+            }
+   } 
+   <form style="display: inline-block;" asp-controller="Hospitals" asp-action="Index" method="Index">
+           <input type="submit" value="Update">
+           </form>
+    </tbody>
+</table>
+<form style="display: inline-block;" asp-controller="Doctors" asp-action="Index" method="Index">
+           <input type="submit" value="Back">
+</form>
