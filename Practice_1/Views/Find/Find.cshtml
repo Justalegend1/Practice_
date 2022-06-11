@@ -26,7 +26,13 @@
     <thead>
         <tr>
             <th>
-                Код студента
+                Уникальный номер студента
+            </th>
+            <th>
+                Фамилия студента
+            </th>
+            <th>
+                Имя студента
             </th>
             <th>
                 Фамилия врача
@@ -52,8 +58,9 @@
     <tbody>
 @using (ApplicationContext db = new ApplicationContext("DefaultConnection"))
    {
-            var _result = from certificate in Model
-                          join doctor in db.Doctor on certificate.Doctor_ID equals doctor.Doctor_ID
+            var _result = from certificate in db.Certificate
+            join doctor in db.Doctor on certificate.Doctor_ID equals doctor.Doctor_ID
+                          join student in db.Student on certificate.Student_ID equals student.Student_ID
                           select new
                           {
                               number = certificate.Certificate_number,
@@ -63,12 +70,14 @@
                               start = certificate.The_beginning_of_the_action,
                               end = certificate.End_of_action,
                               type = certificate.Type,
-                              student = certificate.Student_ID
+                              student = certificate.Student_ID,
+                              surname_st = student.Surname,
+                              Name = student.Name
                           };
             @foreach (var certificate in _result)
             {
                 <tr>
-                    <td>@certificate.student</td>
+                    <td>@certificate.student</td><td>@certificate.surname_st</td><td>@certificate.Name</td>
                     <td>@certificate.surname</td><td>@certificate.name</td>
                     <td>@certificate.middle_name</td><td>@certificate.start</td>
                     <td>@certificate.end</td><td>@certificate.type</td><td>

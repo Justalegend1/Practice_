@@ -42,7 +42,7 @@ namespace Practice_1.Controllers
 
             return View(certificate);
         }
-
+        [HttpGet]
         // GET: Certificates/Create
         public IActionResult Create()
         {
