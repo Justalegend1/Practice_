@@ -53,13 +53,11 @@ namespace Practice_1.Controllers
             ViewBag.Group_ID = new SelectList(_context.Group, "ID_Group", "group");
             ViewBag.ID_basis_study = new SelectList(_context.Basis_of_study, "ID_basis_study", "Basis_study");
             ViewBag.ID_form_study = new SelectList(_context.Form_of_study, "ID_form_study", "Study_form");
-            ViewBag.Certificate_number = new SelectList(_context.Certificate, "Certificate_number");
+            ViewBag.Certificate_number = new SelectList(_context.Certificate, "Certificate_number", "Certificate_number");
             return View();
         }
 
-        // POST: Students/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Student_ID,Surname,Name,Middle_name,Birth_date,Sex_ID,City_ID,Direction_ID,Group_ID,ID_basis_study,ID_form_study,ID_Reason_deduction,Passport_data,Contract_number,Certificate_number,E_mail,Phone_number,Course")] Student student)
@@ -73,7 +71,7 @@ namespace Practice_1.Controllers
             return View(student);
         }
 
-        // GET: Students/Edit/5
+        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -96,9 +94,7 @@ namespace Practice_1.Controllers
             return View(student);
         }
 
-        // POST: Students/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Student_ID,Surname,Name,Middle_name,Birth_date,Sex_ID,City_ID,Direction_ID,Group_ID,ID_basis_study,ID_form_study,ID_Reason_deduction,Passport_data,Contract_number,Certificate_number,E_mail,Phone_number,Course")] Student student)

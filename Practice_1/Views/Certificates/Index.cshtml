@@ -98,6 +98,9 @@
                <input type="datetime-local" placeholder = "Введите дату отсчета" name="datetime"/>
            <input type="submit" value="Get by date!">
            </form>
+           <form style="display: inline-block;" asp-controller="FindVaccination" asp-action="FindVaccination" method="post">
+           <input type="submit" value="Список невакцинированных студентов">
+           </form>
     </tbody>
      <a asp-controller="Doctors" asp-action="Index" method="index">Список врачей</a>
 </table>

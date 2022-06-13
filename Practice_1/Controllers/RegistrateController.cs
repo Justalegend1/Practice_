@@ -13,7 +13,7 @@ namespace Practice_1.Controllers
     {
         private readonly ILogger<RegistrateController> _logger;
         private readonly ApplicationContext _db = new ApplicationContext("Default");
-        
+        public static bool LogIn = false;
 
         public RegistrateController(ILogger<RegistrateController> logger)
         {
@@ -26,12 +26,14 @@ namespace Practice_1.Controllers
         // GET: IdentificationController
         public IActionResult Registrate(string login, string password)
         {
+            LogIn = false;
             var user = _db.Register.Select(x=>x.login_user);
             if (login != null && !user.Contains(login))
             {
                 Register register = new Register { login_user = login, password_user = password, admin = false };
                 _db.Add(register);
                 _db.SaveChanges();
+                LogIn = true;
                 return Redirect("/Students/Index");
             }
             else
@@ -41,6 +43,7 @@ namespace Practice_1.Controllers
         }
         public ActionResult Registrate()
         {
+            LogIn = false;
             return View();
         }
 

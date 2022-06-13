@@ -12,6 +12,7 @@ namespace Practice_1.Controllers
 
         private readonly ILogger<IdentificationController> _logger;
         private readonly ApplicationContext _db = new ApplicationContext("Default");
+        public static bool LogIn = false;
         public IdentificationController(ILogger<IdentificationController> logger)
         {
             _logger = logger;
@@ -22,11 +23,10 @@ namespace Practice_1.Controllers
         {
             var logins = _db.Register.Select(x => x.login_user);
             var passwords = _db.Register.Select(x => x.password_user);
-            if (login != null && logins.Contains(login))
+            if (login != null && logins.Contains(login)&& passwords.Contains(password))
             {
-                if (passwords.Contains(password))
+                RegistrateController.LogIn = true;
                 return Redirect("/Students/Index");
-                else return View();
             }
             else
             {
